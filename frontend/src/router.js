@@ -1,4 +1,4 @@
-import {createMemoryHistory, createRouter} from "vue-router";
+import { createMemoryHistory, createRouter } from 'vue-router';
 import Home from './views/Home.vue';
 import Login from './views/Login.vue';
 import Register from './views/Register.vue';
@@ -7,47 +7,47 @@ const router = createRouter({
     history: createMemoryHistory(),
     routes: [
         {
-            path: '/',
+            component: Home,
             name: 'home',
-            component: Home
+            path: '/',
         },
         {
+            component: Home,
             path: '/home',
-            component: Home
         },
         {
+            component: Login,
             path: '/login',
-            component: Login
         },
         {
+            component: Register,
             path: '/register',
-            component: Register
         },
         {
-            path: '/profile',
+            component: () => import('./views/Profile.vue'),
             name: 'profile',
             // lazy-loaded
-            component: () => import('./views/Profile.vue')
+            path: '/profile',
         },
         {
-            path: '/admin',
+            component: () => import('./views/BoardAdmin.vue'),
             name: 'admin',
             // lazy-loaded
-            component: () => import('./views/BoardAdmin.vue')
+            path: '/admin',
         },
         {
-            path: '/gm',
+            component: () => import('./views/BoardGm.vue'),
             name: 'gm',
             // lazy-loaded
-            component: () => import('./views/BoardGm.vue')
+            path: '/gm',
         },
         {
-            path: '/user',
+            component: () => import('./views/BoardUser.vue'),
             name: 'user',
             // lazy-loaded
-            component: () => import('./views/BoardUser.vue')
-        }
-    ]
+            path: '/user',
+        },
+    ],
 });
 
 router.beforeEach((to, from, next) => {

@@ -10,24 +10,24 @@
 import UserService from '../services/user.service';
 
 export default {
-  name: 'AdminPage',
-  data() {
-    return {
-      content: ''
-    };
-  },
-  mounted() {
-    UserService.getAdminContent().then(
-        response => {
-          this.content = response.data;
-        },
-        error => {
-          this.content =
-              (error.response && error.response.data) ||
-              error.message ||
-              error.toString();
-        }
-    );
-  }
+    data() {
+        return {
+            content: '',
+        };
+    },
+    mounted() {
+        UserService.getAdminContent().then(
+            (response) => {
+                this.content = response.data;
+            },
+            (error) => {
+                this.content
+              = (error.response && error.response.data)
+                  || error.message
+                  || error.toString();
+            },
+        );
+    },
+    name: 'AdminPage',
 };
 </script>

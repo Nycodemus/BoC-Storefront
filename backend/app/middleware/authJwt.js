@@ -3,7 +3,7 @@ const config = require('../config/auth.config');
 const db = require('../models');
 
 const verifyToken = (req, res, next) => {
-    let token = req.headers['x-access-token'];
+    const token = req.headers['x-access-token'];
     if (!token) {
         return res.status(403).send({
             message: 'Missing access token',
@@ -12,63 +12,66 @@ const verifyToken = (req, res, next) => {
 
     jwt.verify(token, config.secret, (err, decoded) => {
         if (err) {
-            return res.status(401).send({message: 'Unauthorized'});
+            return res.status(401).send({ message: 'Unauthorized' });
         }
         req.userId = decoded.id;
         next();
+        return null;
     });
+
+    return null;
 };
 
 const requireAdmin = (req, res, next) => {
     db.user.findByPk(req.userId).then((user) => {
         user.getRoles().then((roles) => {
-            for (let role of roles) {
+            for (const role of roles) {
                 if (role.name === 'admin') {
                     next();
                     return;
                 }
             }
 
-            res.status(403).send({message: 'Unauthorized'});
-        })
+            res.status(403).send({ message: 'Unauthorized' });
+        });
     });
-}
+};
 
 const requireGm = (req, res, next) => {
     db.user.findByPk(req.userId).then((user) => {
         user.getRoles().then((roles) => {
-            for (let role of roles) {
+            for (const role of roles) {
                 if (role.name === 'gm') {
                     next();
                     return;
                 }
             }
 
-            res.status(403).send({message: 'Unauthorized'});
-        })
+            res.status(403).send({ message: 'Unauthorized' });
+        });
     });
-}
+};
 
 const requireGmOrAdmin = (req, res, next) => {
     db.user.findByPk(req.userId).then((user) => {
         user.getRoles().then((roles) => {
-            for (let role of roles) {
+            for (const role of roles) {
                 if (role.name === 'admin' || role.name === 'gm') {
                     next();
                     return;
                 }
             }
 
-            res.status(403).send({message: 'Unauthorized'});
-        })
+            res.status(403).send({ message: 'Unauthorized' });
+        });
     });
-}
+};
 
 const authJwt = {
-    verifyToken,
     requireAdmin,
     requireGm,
     requireGmOrAdmin,
-}
+    verifyToken,
+};
 
 module.exports = authJwt;

@@ -1,18 +1,18 @@
 module.exports = (sequelize, Seqelize) => {
     return sequelize.define('users', {
-        id: {
-            type: Seqelize.INTEGER,
-            allowNull: false,
-            primaryKey: true,
-            autoIncrement: true,
-        },
         email: {
-            type: Seqelize.STRING,
             allowNull: false,
+            type: Seqelize.STRING,
+        },
+        id: {
+            allowNull: false,
+            autoIncrement: true,
+            primaryKey: true,
+            type: Seqelize.INTEGER,
         },
         password: {
-            type: Seqelize.STRING,
             allowNull: false,
-        }
+            type: Seqelize.STRING,
+        },
     });
-}
+};

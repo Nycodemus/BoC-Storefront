@@ -22,16 +22,16 @@
 
 <script>
 export default {
-  name: 'ProfilePage',
-  computed: {
-    currentUser() {
-      return this.$store.state.auth.user;
-    }
-  },
-  mounted() {
-    if (!this.currentUser) {
-      this.$router.push('/login');
-    }
-  }
+    computed: {
+        currentUser() {
+            return this.$store.state.auth.user;
+        },
+    },
+    mounted() {
+        if (!this.currentUser) {
+            this.$router.push('/login');
+        }
+    },
+    name: 'ProfilePage',
 };
 </script>

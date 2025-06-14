@@ -6,7 +6,8 @@
   "scripts": {
     "frontend:serve-dev": "npm run dev --workspace frontend",
     "backend:serve-dev": "npm run serve --workspace backend",
-    "lint": "eslint"
+    "lint": "eslint",
+    "lint:fix": "eslint --fix"
   },
   "workspaces": [
     "frontend",
@@ -17,8 +18,10 @@
     "@eslint/js": "^9.29.0",
     "@eslint/json": "^0.12.0",
     "@eslint/markdown": "^6.5.0",
+    "@stylistic/eslint-plugin": "^4.4.1",
     "eslint": "^9.29.0",
     "eslint-plugin-vue": "^10.2.0",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
     "globals": "^16.2.0"
   },
   "type": "module",

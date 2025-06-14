@@ -6,7 +6,7 @@ const sequelize = new Sequelize({
     host: config.host,
 });
 
-let db = {};
+const db = {};
 
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
@@ -14,4 +14,3 @@ db.sequelize = sequelize;
 require('./auth')(db);
 
 module.exports = db;
-

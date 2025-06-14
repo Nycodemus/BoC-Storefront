@@ -9,15 +9,15 @@ class UserService {
     }
 
     getUserContent() {
-        return axios.get(`${API_URL}/user`, {headers: authHeader()});
+        return axios.get(`${API_URL}/user`, { headers: authHeader() });
     }
 
     getGmContent() {
-        return axios.get(`${API_URL}/gm`, {headers: authHeader()});
+        return axios.get(`${API_URL}/gm`, { headers: authHeader() });
     }
 
     getAdminContent() {
-        return axios.get(`${API_URL}/admin`, {headers: authHeader()});
+        return axios.get(`${API_URL}/admin`, { headers: authHeader() });
     }
 }
 

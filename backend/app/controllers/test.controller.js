@@ -1,15 +1,15 @@
 exports.public = (req, res) => {
-    res.status(200).send({message:"Public content"});
-}
+    res.status(200).send({ message: 'Public content' });
+};
 
 exports.user = (req, res) => {
-    res.status(200).send({message:"User content"});
-}
+    res.status(200).send({ message: 'User content' });
+};
 
 exports.gm = (req, res) => {
-    res.status(200).send({message:"GM Content"});
-}
+    res.status(200).send({ message: 'GM Content' });
+};
 
 exports.admin = (req, res) => {
-    res.status(200).send({message:"Admin content"});
-}
+    res.status(200).send({ message: 'Admin content' });
+};

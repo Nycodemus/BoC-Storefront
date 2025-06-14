@@ -31,49 +31,49 @@
 import * as yup from 'yup';
 
 const schema = yup.object({
-  email: yup.string().email().required('Email is required'),
-  password: yup.string().required('Password is required'),
+    email: yup.string().email().required('Email is required'),
+    password: yup.string().required('Password is required'),
 });
 </script>
 
 <script>
 import User from '../models/user.model';
-import {ErrorMessage, Field, Form as VeeForm} from "vee-validate";
+import { ErrorMessage, Field, Form as VeeForm } from 'vee-validate';
 
 export default {
-  name: 'LoginPage',
-  components: {ErrorMessage, Field, VeeForm},
-  data() {
-    return {
-      user: new User('', ''),
-      loading: false,
-      message: ''
-    };
-  },
-  computed: {
-    loggedIn() {
-      return this.$store.state.auth.status.loggedIn;
-    }
-  },
-  created() {
-    if (this.loggedIn) {
-      this.$router.push('/profile');
-    }
-  },
-  methods: {
-    handleLogin() {
-      this.loading = true;
-      this.$store.dispatch('auth/login', this.user).then(
-          () => {
+    components: { ErrorMessage, Field, VeeForm },
+    computed: {
+        loggedIn() {
+            return this.$store.state.auth.status.loggedIn;
+        },
+    },
+    created() {
+        if (this.loggedIn) {
             this.$router.push('/profile');
-          },
-          error => {
-            this.loading = false;
-            this.message = error.response?.data?.message || error.toString();
-          }
-      );
-    }
-  }
+        }
+    },
+    data() {
+        return {
+            loading: false,
+            message: '',
+            user: new User('', ''),
+        };
+    },
+    methods: {
+        handleLogin() {
+            this.loading = true;
+            this.$store.dispatch('auth/login', this.user).then(
+                () => {
+                    this.$router.push('/profile');
+                },
+                (error) => {
+                    this.loading = false;
+                    this.message = error.response?.data?.message || error.toString();
+                },
+            );
+        },
+    },
+    name: 'LoginPage',
 };
 </script>
 

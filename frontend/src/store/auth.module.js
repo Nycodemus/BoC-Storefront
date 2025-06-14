@@ -1,60 +1,60 @@
-import AuthService from "../services/auth.service.js";
+import AuthService from '../services/auth.service.js';
 
 let user = null;
 try {
-    user = JSON.parse(localStorage.getItem("user"))
+    user = JSON.parse(localStorage.getItem('user'));
 } catch (error) {
     console.log(error);
 }
 const initialState = user
-    ? {status: {loggedIn: true}, user}
-    : {status: {loggedIn: false}, user: null};
+    ? { status: { loggedIn: true }, user }
+    : { status: { loggedIn: false }, user: null };
 
 export const auth = {
-    namespaced: true,
-    state: initialState,
     actions: {
-        login: ({commit}, user) => {
-            return AuthService.signin(user).then(user => {
-                commit("loginSuccess", user);
-                return Promise.resolve(user);
-            }, error => {
-                commit("loginFailure");
+        login: ({ commit }, u) => {
+            return AuthService.signin(u).then((response) => {
+                commit('loginSuccess', response);
+                return Promise.resolve(response);
+            }, (error) => {
+                commit('loginFailure');
                 return Promise.reject(error);
             });
         },
-        logout: ({commit}) => {
+        logout: ({ commit }) => {
             AuthService.signout();
-            commit("logout");
+            commit('logout');
         },
-        register: ({commit}, user) => {
-            return AuthService.register(user).then(response => {
-                commit("registrationSuccess");
+        register: ({ commit }, u) => {
+            return AuthService.register(u).then((response) => {
+                commit('registrationSuccess');
                 return Promise.resolve(response.data);
-            }, error => {
-                commit("registrationFailure");
+            }, (error) => {
+                commit('registrationFailure');
                 return Promise.reject(error);
             });
-        }
+        },
     },
     mutations: {
-        loginSuccess(state, user) {
-            state.status.loggedIn = true;
-            state.user = user;
-        },
         loginFailure(state) {
             state.status.loggedIn = false;
             state.user = null;
+        },
+        loginSuccess(state, signinResult) {
+            state.status.loggedIn = true;
+            state.user = signinResult;
         },
         logout(state) {
             state.status.loggedIn = false;
             state.user = null;
         },
+        registrationFailure(state) {
+            state.status.loggedIn = false;
+        },
         registrationSuccess(state) {
             state.status.loggedIn = false;
         },
-        registrationFailure(state) {
-            state.status.loggedIn = false;
-        }
-    }
+    },
+    namespaced: true,
+    state: initialState,
 };

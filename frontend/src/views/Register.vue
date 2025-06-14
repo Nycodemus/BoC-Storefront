@@ -31,59 +31,59 @@
 
 <script setup>
 import * as yup from 'yup';
-import {ErrorMessage} from "vee-validate";
+import { ErrorMessage } from 'vee-validate';
 
 const schema = yup.object({
-  email: yup.string().email("Must be a valid email address").required("Email is required"),
-  password: yup.string().min(6, "Password must be at least 6 characters").required("Password is required"),
+    email: yup.string().email('Must be a valid email address').required('Email is required'),
+    password: yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
 });
 </script>
 
 <script>
+
+import { Field, Form as VeeForm } from 'vee-validate';
 import User from '../models/user.model';
-import {Field, Form as VeeForm} from "vee-validate";
 
 export default {
-  name: 'RegisterPage',
-  components: {VeeForm, Field},
-  data() {
-    return {
-      user: new User('', '', ''),
-      submitted: false,
-      successful: false,
-      message: ''
-    };
-  },
-  computed: {
-    loggedIn() {
-      return this.$store.state.auth.status.loggedIn;
-    }
-  },
-  mounted() {
-    if (this.loggedIn) {
-      this.$router.push('/profile');
-    }
-  },
-  methods: {
-    handleRegister() {
-      this.message = '';
-      this.submitted = true;
-      this.$store.dispatch('auth/register', this.user).then(
-          data => {
-            this.message = data.message;
-            this.successful = true;
-            this.$router.push('/login');
-          },
-          error => {
-            this.message =
-                (error.response && error.response.data) ||
-                error.message ||
-                error.toString();
-            this.successful = false;
-          }
-      );
-    }
-  }
+    components: { Field, VeeForm },
+    computed: {
+        loggedIn() {
+            return this.$store.state.auth.status.loggedIn;
+        },
+    },
+    data() {
+        return {
+            message: '',
+            submitted: false,
+            successful: false,
+            user: new User('', '', ''),
+        };
+    },
+    methods: {
+        handleRegister() {
+            this.message = '';
+            this.submitted = true;
+            this.$store.dispatch('auth/register', this.user).then(
+                (data) => {
+                    this.message = data.message;
+                    this.successful = true;
+                    this.$router.push('/login');
+                },
+                (error) => {
+                    this.message = (error.response && error.response.data)
+                        || error.message
+                        || error.toString();
+                    this.successful = false;
+                },
+            );
+        },
+    },
+    mounted() {
+        if (this.loggedIn) {
+            this.$router.push('/profile');
+        }
+    },
+    name: 'RegisterPage',
 };
 </script>
 
