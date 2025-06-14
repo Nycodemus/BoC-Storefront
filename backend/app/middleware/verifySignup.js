@@ -1,8 +1,7 @@
 const db = require('../models');
-const ROLES = db.ROLES;
 const User = db.user;
 
-checkDuplicateUsernameOrEmail = (req, res, next) => {
+const checkDuplicateUsernameOrEmail = (req, res, next) => {
     User.findOne({where: {email: req.body.email}}).then((user) => {
         if (user) {
             res.status(400).send({message: 'Email already in use'});
@@ -12,7 +11,7 @@ checkDuplicateUsernameOrEmail = (req, res, next) => {
     })
 };
 
-checkRolesExist = (req, res, next) => {
+const checkRolesExist = (req, res, next) => {
     if (req.body.roles) {
         for (let role of req.body.roles) {
             if (!db.ROLES.includes(role)) {

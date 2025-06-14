@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const config = require('../config/auth.config');
 const db = require('../models');
 
-verifyToken = (req, res, next) => {
+const verifyToken = (req, res, next) => {
     let token = req.headers['x-access-token'];
     if (!token) {
         return res.status(403).send({
@@ -19,7 +19,7 @@ verifyToken = (req, res, next) => {
     });
 };
 
-requireAdmin = (req, res, next) => {
+const requireAdmin = (req, res, next) => {
     db.user.findByPk(req.userId).then((user) => {
         user.getRoles().then((roles) => {
             for (let role of roles) {
@@ -34,7 +34,7 @@ requireAdmin = (req, res, next) => {
     });
 }
 
-requireGm = (req, res, next) => {
+const requireGm = (req, res, next) => {
     db.user.findByPk(req.userId).then((user) => {
         user.getRoles().then((roles) => {
             for (let role of roles) {
@@ -49,7 +49,7 @@ requireGm = (req, res, next) => {
     });
 }
 
-requireGmOrAdmin = (req, res, next) => {
+const requireGmOrAdmin = (req, res, next) => {
     db.user.findByPk(req.userId).then((user) => {
         user.getRoles().then((roles) => {
             for (let role of roles) {

@@ -2,7 +2,7 @@
   <div class="col-md-12">
     <div class="card card-container">
       <img id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" class="profile-img-card" alt="Profile Picture"/>
-      <Form name="form" :validation-schema="schema" @submit="handleLogin">
+      <VeeForm name="form" :validation-schema="schema" @submit="handleLogin">
         <div class="form-group">
           <label for="email">Email</label>
           <Field v-model="user.email" name="email" type="email" clas="form-field"/>
@@ -22,7 +22,7 @@
         <div class="form-group">
           <div v-if="message" class="alert alert-danger" role="alert">{{ message }}</div>
         </div>
-      </Form>
+      </VeeForm>
     </div>
   </div>
 </template>
@@ -38,11 +38,11 @@ const schema = yup.object({
 
 <script>
 import User from '../models/user.model';
-import {ErrorMessage, Field, Form} from "vee-validate";
+import {ErrorMessage, Field, Form as VeeForm} from "vee-validate";
 
 export default {
-  name: 'Login',
-  components: {ErrorMessage, Field, Form},
+  name: 'LoginPage',
+  components: {ErrorMessage, Field, VeeForm},
   data() {
     return {
       user: new User('', ''),

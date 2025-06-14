@@ -5,11 +5,22 @@
   "main": "index.js",
   "scripts": {
     "frontend:serve-dev": "npm run dev --workspace frontend",
-    "backend:serve-dev": "npm run serve --workspace backend"
+    "backend:serve-dev": "npm run serve --workspace backend",
+    "lint": "eslint"
   },
   "workspaces": [
     "frontend",
     "backend"
   ],
+  "devDependencies": {
+    "@eslint/css": "^0.9.0",
+    "@eslint/js": "^9.29.0",
+    "@eslint/json": "^0.12.0",
+    "@eslint/markdown": "^6.5.0",
+    "eslint": "^9.29.0",
+    "eslint-plugin-vue": "^10.2.0",
+    "globals": "^16.2.0"
+  },
+  "type": "module",
   "private": true
 }
