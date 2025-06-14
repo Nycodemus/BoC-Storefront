@@ -1,0 +1,15 @@
+{
+  "name": "blade_of_cloth_storefront",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "frontend:serve-dev": "npm run dev --workspace frontend",
+    "backend:serve-dev": "npm run serve --workspace backend"
+  },
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "private": true
+}

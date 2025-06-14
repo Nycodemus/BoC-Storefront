@@ -1,0 +1,36 @@
+### GET request to example server
+GET http://localhost:8080/
+
+### CREATE USER
+POST http://localhost:8080/api/auth/signup
+Content-Type: application/json
+Accept: application/json
+
+{
+  "email": "test2@example.com",
+  "password": "password",
+  "roles": ["user","admin"]
+}
+
+### SIGN IN USER
+POST http://localhost:8080/api/auth/signin
+Content-Type: application/json
+Accept: application/json
+
+{
+  "email": "test@example.com",
+  "password": "testPass"
+}
+
+> {% client.global.set("access_token", response.body.accessToken) %}
+
+### CALL PUBLIC TEST ENDPOINT
+GET http://localhost:8080/api/test/public
+
+### CALL AUTHED TEST ENDPOINT
+GET http://localhost:8080/api/test/user
+x-access-token: {{access_token}}
+
+### CALL ADMIN TEST ENDPOINT
+GET http://localhost:8080/api/test/admin
+x-access-token: {{access_token}}
