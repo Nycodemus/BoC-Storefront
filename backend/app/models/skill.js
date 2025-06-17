@@ -4,8 +4,9 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
     class Skill extends Model {
-        static associate(db) {
-            this.belongsTo(db.Statistic);
+        static associate(models) {
+            this.belongsTo(models.Statistic);
+            this.hasMany(models.WeaponType);
         }
     }
     Skill.init({

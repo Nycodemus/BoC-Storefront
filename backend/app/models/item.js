@@ -3,25 +3,29 @@ const {
     Model,
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-    class Statistic extends Model {
+    class Item extends Model {
         static associate(models) {
-            this.hasMany(models.Skill);
+            this.belongsTo(models.Manufacturer);
+            this.belongsTo(models.ItemType);
         }
     }
-    Statistic.init({
+    Item.init({
+        description: {
+            allowNull: false,
+            type: DataTypes.STRING,
+        },
+        imageUrl: {
+            allowNull: false,
+            type: DataTypes.STRING,
+        },
         name: {
             allowNull: false,
             type: DataTypes.STRING,
-            unique: true,
         },
-        shortName: {
-            allowNull: false,
-            type: DataTypes.STRING,
-            unique: true,
-        },
-    }, {
-        modelName: 'Statistic',
+    },
+    {
+        modelName: 'Item',
         sequelize,
     });
-    return Statistic;
+    return Item;
 };

@@ -3,20 +3,20 @@ const {
     Model,
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-    class Role extends Model {
+    class WeaponType extends Model {
         static associate(models) {
-            this.belongsToMany(models.User, { through: 'UserRoles' });
+            this.belongsTo(models.Skill);
         }
     }
-    Role.init({
+    WeaponType.init({
         name: {
             allowNull: false,
             type: DataTypes.STRING,
             unique: true,
         },
     }, {
-        modelName: 'Role',
+        modelName: 'WeaponType',
         sequelize,
     });
-    return Role;
+    return WeaponType;
 };
