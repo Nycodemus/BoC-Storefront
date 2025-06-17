@@ -12,27 +12,29 @@ const initialState = user
 
 export const auth = {
     actions: {
-        login: ({ commit }, u) => {
-            return AuthService.signin(u).then((response) => {
+        login: async ({ commit }, u) => {
+            try {
+                const response = await AuthService.signin(u);
                 commit('loginSuccess', response);
-                return Promise.resolve(response);
-            }, (error) => {
+                return response;
+            } catch (error) {
                 commit('loginFailure');
-                return Promise.reject(error);
-            });
+                throw error;
+            }
         },
         logout: ({ commit }) => {
             AuthService.signout();
             commit('logout');
         },
-        register: ({ commit }, u) => {
-            return AuthService.register(u).then((response) => {
-                commit('registrationSuccess');
-                return Promise.resolve(response.data);
-            }, (error) => {
-                commit('registrationFailure');
-                return Promise.reject(error);
-            });
+        register: async ({ commit }, u) => {
+            try {
+                const response = await AuthService.register(u);
+                commit('registerSuccess', response.data);
+                return response;
+            } catch (error) {
+                commit('registerFailure');
+                throw error;
+            }
         },
     },
     mutations: {

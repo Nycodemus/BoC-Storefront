@@ -4,15 +4,23 @@
   "description": "",
   "main": "app.js",
   "scripts": {
+    "db:init": "npm run db:migrate && npm run db:seed",
+    "db:migrate": "sequelize-cli db:migrate",
+    "db:seed:clean": "sequelize-cli db:seed:undo:all",
+    "db:seed": "sequelize-cli db:seed:all",
     "serve": "node server.js"
   },
   "private": true,
+  "devDependencies": {
+    "sequelize-cli": "^6.6.3"
+  },
   "dependencies": {
     "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
     "sequelize": "^6.37.7",
-    "sqlite3": "^5.1.7"
+    "sqlite3": "^5.1.7",
+    "dotenv": "^16.5.0"
   }
 }

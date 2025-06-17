@@ -1,0 +1,97 @@
+'use strict';
+
+const skills = [
+    /* name, isBase, isExpensive, statId */
+    ['Concentration', true, false, 6],
+    ['Conceal/Reveal Object', false, false, 1],
+    ['Lip Reading', false, false, 1],
+    ['Perception', true, false, 1],
+    ['Tracking', false, false, 1],
+    ['Athletics', true, false, 3],
+    ['Contortionist', false, false, 3],
+    ['Dance', false, false, 3],
+    ['Endurance', false, false, 6],
+    ['Resist Torture/Drugs', false, false, 6],
+    ['Stealth', true, false, 3],
+    ['Drive Land Vehicle', false, false, 2],
+    ['Pilot Air Vehicle', false, true, 2],
+    ['Pilot Sea Vehicle', false, false, 2],
+    ['Riding', false, false, 2],
+    ['Accounting', false, false, 1],
+    ['Animal Handling', false, false, 1],
+    ['Bureaucracy', false, false, 1],
+    ['Business', false, false, 1],
+    ['Composition', false, false, 1],
+    ['Criminology', false, false, 1],
+    ['Cryptography', false, false, 1],
+    ['Deduction', false, false, 1],
+    ['Education', true, false, 1],
+    ['Gamble', false, false, 1],
+    ['Language 1', true, false, 1], // Streetslang
+    ['Language 2', false, false, 1],
+    ['Language 3', false, false, 1],
+    ['Library Search', false, false, 1],
+    ['Local Expert 1', true, false, 1], // Your Home
+    ['Local Expert 2', false, false, 1],
+    ['Local Expert 3', false, false, 1],
+    ['Science 1', false, false, 1],
+    ['Science 2', false, false, 1],
+    ['Tactics', false, false, 1],
+    ['Wilderness Survival', false, false, 1],
+    ['Brawling', true, false, 3],
+    ['Evasion', true, false, 3],
+    ['Martial Arts', false, true, 3],
+    ['Melee Weapon', false, false, 3],
+    ['Acting', false, false, 5],
+    ['Play Instrument 1', false, false, 4],
+    ['Play Instrument 2', false, false, 4],
+    ['Archery', false, false, 2],
+    ['Autofire', false, true, 2],
+    ['Handgun', false, false, 2],
+    ['Heavy Weapons', false, true, 2],
+    ['Shoulder Arms', false, false, 2],
+    ['Bribery', false, false, 5],
+    ['Conversation', true, false, 10],
+    ['Human Perception', true, false, 10],
+    ['Interrogation', false, false, 5],
+    ['Persuasion', true, false, 5],
+    ['Personal Grooming', false, false, 5],
+    ['Streetwise', false, false, 5],
+    ['Trading', false, false, 5],
+    ['Wardrobe & Style', false, false, 5],
+    ['Air Vehicle Tech', false, false, 4],
+    ['Basic Tech', false, false, 4],
+    ['Cybertech', false, false, 4],
+    ['Demolitions', false, true, 4],
+    ['Electronics/Security Tech', false, true, 4],
+    ['First Aid', true, false, 4],
+    ['Forgery', false, false, 4],
+    ['Land Vehicle Tech', false, false, 4],
+    ['Paint/Draw/Sculpt', false, false, 4],
+    ['Paramedic', false, true, 4],
+    ['Photography/Film', false, false, 4],
+    ['Pick Lock', false, false, 4],
+    ['Pick Pocket', false, false, 4],
+    ['Sea Vehicle Tech', false, false, 4],
+    ['Weaponstech', false, false, 4],
+];
+
+/** @type {import('sequelize-cli').Migration} */
+module.exports = {
+    // eslint-disable-next-line no-unused-vars
+    async up(queryInterface, Sequelize) {
+        await queryInterface.bulkInsert('Skills', skills.map((s, idx) => ({
+            createdAt: new Date(),
+            id: idx + 1,
+            isBase: s[1],
+            isExpensive: s[2],
+            name: s[0],
+            statisticId: s[3],
+            updatedAt: new Date(),
+        })));
+    },
+    // eslint-disable-next-line sort-keys,no-unused-vars
+    async down(queryInterface, Sequelize) {
+        await queryInterface.bulkDelete('Skills', { id: skills.map((_, idx) => idx + 1) });
+    },
+};

@@ -1,3 +1,3 @@
 module.exports = {
-    secret: 'secret', // TODO: Don't be stupid
+    secret: process.env.PASSWORD_SALT,
 };

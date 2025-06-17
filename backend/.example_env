@@ -1,0 +1,5 @@
+CORS_ORIGIN=localhost
+NODE_ENV=development
+PASSWORD_SALT=example
+PORT=8080
+REBUILD_DATABASE=true

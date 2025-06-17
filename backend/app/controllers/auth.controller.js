@@ -5,62 +5,57 @@ const bcrypt = require('bcryptjs');
 
 const { Op } = db.Sequelize;
 
-exports.signup = (req, res) => {
-    db.user.create({
-        email: req.body.email,
-        password: bcrypt.hashSync(req.body.password, 8),
-    }).then((user) => {
+exports.signup = async (req, res) => {
+    try {
+        const user = await db.User.create({
+            email: req.body.email,
+            password: bcrypt.hashSync(req.body.password, 8),
+            username: req.body.username,
+        });
+
+        let roles;
         if (req.body.roles) {
-            db.role.findAll({ where: { name: { [Op.or]: req.body.roles } } }).then((roles) => {
-                user.setRoles(roles).then(() => {
-                    res.status(201).send();
-                });
-            });
+            roles = await db.Role.findAll({ where: { name: { [Op.or]: req.body.roles } } });
         } else {
-            user.setRoles([1]).then(() => {
-                res.status(201).send();
-            });
+            roles = await db.Role.findOne({ where: { name: 'user' } });
         }
-    }).catch((err) => {
-        console.log(err);
+
+        await user.setRoles(roles);
+        res.status(201).send();
+    } catch (error) {
+        console.log(error);
         res.status(500).send({ message: 'Failed to create user' });
-    });
+    }
 };
 
-exports.signin = (req, res) => {
-    db.user.findOne({ where: { email: req.body.email } }).then((user) => {
-        if (!user) {
-            res.status(401).send({ message: 'Email or password is incorrect' });
-            return;
+exports.signin = async (req, res) => {
+    try {
+        const user = await db.User.findOne({ where: { email: req.body.email } });
+
+        if (!user || !bcrypt.compareSync(req.body.password, user.password)) {
+            return res.status(401).send({ message: 'Email or password is incorrect' });
         }
 
-        if (!bcrypt.compareSync(req.body.password, user.password)) {
-            res.status(401).send({ message: 'Email or password is incorrect' });
-            return;
-        }
+        const roles = (await user.getRoles()).map((role) => role.name);
 
         const token = jwt.sign({
             id: user.id,
+            roles,
         }, config.secret, {
             algorithm: 'HS256',
             allowInsecureKeySizes: false,
             expiresIn: 4 * 60 * 60,
         });
 
-        const jwtRoles = [];
-        user.getRoles().then((roles) => {
-            for (const role of roles) {
-                jwtRoles.push(role.name);
-            }
-            res.status(200).send({
-                accessToken: token,
-                email: user.email,
-                id: user.id,
-                roles: jwtRoles,
-            });
+        return res.status(200).send({
+            accessToken: token,
+            email: user.email,
+            id: user.id,
+            roles,
+            username: user.username,
         });
-    }).catch((err) => {
-        console.log(err);
-        res.status(500).send({ message: 'Failed to sign user in' });
-    });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({ message: 'Failed to sign user in' });
+    }
 };

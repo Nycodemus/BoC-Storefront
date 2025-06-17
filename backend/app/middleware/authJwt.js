@@ -5,9 +5,7 @@ const db = require('../models');
 const verifyToken = (req, res, next) => {
     const token = req.headers['x-access-token'];
     if (!token) {
-        return res.status(403).send({
-            message: 'Missing access token',
-        });
+        return res.status(403).send({ message: 'Missing access token' });
     }
 
     jwt.verify(token, config.secret, (err, decoded) => {
@@ -22,50 +20,38 @@ const verifyToken = (req, res, next) => {
     return null;
 };
 
-const requireAdmin = (req, res, next) => {
-    db.user.findByPk(req.userId).then((user) => {
-        user.getRoles().then((roles) => {
-            for (const role of roles) {
-                if (role.name === 'admin') {
-                    next();
-                    return;
-                }
+function requireAnyRole(ofRoles) {
+    return async (req, res, next) => {
+        try {
+            const user = await db.User.findByPk(req.userId);
+            if (!user) {
+                return res.status(403).send({ message: 'Unauthorized' });
             }
 
-            res.status(403).send({ message: 'Unauthorized' });
-        });
-    });
-};
+            const [userRoles, ...validRoles] = await Promise.all([
+                user.getRoles(),
+                ...ofRoles.map((role) => db.Role.findOne({ where: { name: role } })),
+            ]);
 
-const requireGm = (req, res, next) => {
-    db.user.findByPk(req.userId).then((user) => {
-        user.getRoles().then((roles) => {
-            for (const role of roles) {
-                if (role.name === 'gm') {
-                    next();
-                    return;
-                }
+            const validRoleIds = validRoles.map((role) => role.id);
+
+            if (userRoles.some((role) => validRoleIds.includes(role.id))) {
+                return next();
             }
 
-            res.status(403).send({ message: 'Unauthorized' });
-        });
-    });
-};
+            return res.status(403).send({ message: 'Unauthorized' });
+        } catch (error) {
+            console.log(error);
+            return res.status(500).send({ message: 'Failed to verify user admin role' });
+        }
+    };
+}
 
-const requireGmOrAdmin = (req, res, next) => {
-    db.user.findByPk(req.userId).then((user) => {
-        user.getRoles().then((roles) => {
-            for (const role of roles) {
-                if (role.name === 'admin' || role.name === 'gm') {
-                    next();
-                    return;
-                }
-            }
+const requireAdmin = requireAnyRole(['admin']);
 
-            res.status(403).send({ message: 'Unauthorized' });
-        });
-    });
-};
+const requireGm = requireAnyRole(['gm']);
+
+const requireGmOrAdmin = requireAnyRole(['gm', 'admin']);
 
 const authJwt = {
     requireAdmin,

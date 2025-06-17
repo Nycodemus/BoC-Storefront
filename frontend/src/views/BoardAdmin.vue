@@ -15,18 +15,13 @@ export default {
             content: '',
         };
     },
-    mounted() {
-        UserService.getAdminContent().then(
-            (response) => {
-                this.content = response.data;
-            },
-            (error) => {
-                this.content
-              = (error.response && error.response.data)
-                  || error.message
-                  || error.toString();
-            },
-        );
+    async mounted() {
+        try {
+            const response = await UserService.getAdminContent();
+            this.content = response.data;
+        } catch (error) {
+            this.content = error?.response?.data || error?.message || error.toString();
+        }
     },
     name: 'AdminPage',
 };

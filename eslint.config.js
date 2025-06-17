@@ -29,7 +29,7 @@ export default defineConfig([
         plugins: { eslintPluginSimpleImportSort, js, stylistic },
         rules: {
             'camelcase': 'error',
-            'complexity': ['warn', 5],
+            'complexity': ['warn', 10],
             'consistent-return': 'error',
             'consistent-this': 'error',
             'default-case': 'error',

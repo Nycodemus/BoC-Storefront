@@ -60,17 +60,15 @@ export default {
         };
     },
     methods: {
-        handleLogin() {
+        async handleLogin() {
             this.loading = true;
-            this.$store.dispatch('auth/login', this.user).then(
-                () => {
-                    this.$router.push('/profile');
-                },
-                (error) => {
-                    this.loading = false;
-                    this.message = error.response?.data?.message || error.toString();
-                },
-            );
+            try {
+                await this.$store.dispatch('auth/login', this.user);
+                this.$router.push('/profile');
+            } catch (error) {
+                this.loading = false;
+                this.message = error?.response?.data?.message || error.toString();
+            }
         },
     },
     name: 'LoginPage',

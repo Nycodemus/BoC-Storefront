@@ -15,18 +15,13 @@ export default {
             content: '',
         };
     },
-    mounted() {
-        UserService.getGmContent().then(
-            (response) => {
-                this.content = response.data;
-            },
-            (error) => {
-                this.content
-              = (error.response && error.response.data)
-                  || error.message
-                  || error.toString();
-            },
-        );
+    async mounted() {
+        try {
+            const response = await UserService.getGmContent();
+            this.content = response.data;
+        } catch (error) {
+            this.content = error?.response?.data || error?.message || error.toString();
+        }
     },
     name: 'GmPage',
 };
