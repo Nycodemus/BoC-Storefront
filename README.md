@@ -9,8 +9,9 @@
 1. Clone the repository
 2. Run `npm i`
 3. Prepare backend db:
-   1. cd to `backend`
-   2. run `npm db:init`. This runs all migrations and seeds the database
+   1. `cd` to `backend`
+   2. Copy the `.example_env` file to `.env`
+   3. Run `npm db:init`. This runs all migrations and seeds the database
 4. Go back to root directory `cd ..`
 5. Run `npm run frontend:serve-dev` to serve the frontend.
 6. Run `npm run backend:serve-dev` to serve the backend.
