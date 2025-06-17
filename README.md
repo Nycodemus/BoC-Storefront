@@ -18,6 +18,4 @@
 7. Vite should launch the webpage at `http://localhost:5173/`.
 
 Currently, the frontend uses Vite, which includes file watchers. Vite will automatically
-reload when changes to the frontend are detected. The backend, however, does not include
-file watchers yet. If you make changes to the source there, you will need to stop and
-restart the backend.
+reload when changes to the frontend are detected. The backend uses nodemon to accomplish the same.
