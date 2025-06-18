@@ -1,17 +1,17 @@
 'use strict';
 
 const categories = [
-    ['Fashionware'],
-    ['Neuralware'],
-    ['Cyberoptics'],
-    ['Cyberaudio'],
-    ['Internal Body'],
-    ['External Body'],
-    ['Cyberarms'],
-    ['Cyberlegs'],
-    ['Borgware'],
-    ['Chipware'],
-    ['Cyberdeck Hardware'],
+    ['fashionware'],
+    ['neuralware'],
+    ['cyberoptics'],
+    ['cyberaudio'],
+    ['internal body'],
+    ['external body'],
+    ['cyberarms'],
+    ['cyberlegs'],
+    ['borgware'],
+    ['chipware'],
+    ['cyberdeck hardware'],
 ];
 
 /** @type {import('sequelize-cli').Migration} */

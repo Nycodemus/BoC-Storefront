@@ -7,6 +7,26 @@ module.exports = (sequelize, DataTypes) => {
         static associate(models) {
             this.belongsTo(models.Manufacturer);
             this.belongsTo(models.ItemType);
+            this.hasOne(models.WeaponMod, {
+                onDelete: 'CASCADE',
+                onUpdate: 'CASCADE',
+            });
+            this.hasOne(models.Armor, {
+                onDelete: 'CASCADE',
+                onUpdate: 'CASCADE',
+            });
+            this.hasOne(models.Shield, {
+                onDelete: 'CASCADE',
+                onUpdate: 'CASCADE',
+            });
+            this.hasOne(models.Cyberware, {
+                onDelete: 'CASCADE',
+                onUpdate: 'CASCADE',
+            });
+            this.hasOne(models.Weapon, {
+                onDelete: 'CASCADE',
+                onUpdate: 'CASCADE',
+            });
         }
     }
     Item.init({

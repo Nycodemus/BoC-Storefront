@@ -1,21 +1,21 @@
 'use strict';
 
 const types = [
-    ['Medium Pistol', 'Handgun'],
-    ['Heavy Pistol', 'Handgun'],
-    ['Very Heavy Pistol', 'Handgun'],
-    ['SMG', 'Handgun'],
-    ['Heavy SMG', 'Handgun'],
-    ['Shotgun', 'Shoulder Arms'],
-    ['Assault Rifle', 'Shoulder Arms'],
-    ['Sniper RIfle', 'Shoulder Arms'],
-    ['Bows & Crossbows', 'Archery'],
-    ['Grenade Launcher', 'Heavy Weapons'],
-    ['Rocket Launcher', 'Heavy Weapons'],
-    ['Light Melee', 'Melee Weapon'],
-    ['Medium Melee', 'Melee Weapon'],
-    ['Heavy Melee', 'Melee Weapon'],
-    ['Very Heavy Melee', 'Melee Weapon'],
+    ['medium pistol', 'handgun'],
+    ['heavy pistol', 'handgun'],
+    ['very heavy pistol', 'handgun'],
+    ['smg', 'handgun'],
+    ['heavy smg', 'handgun'],
+    ['shotgun', 'shoulder arms'],
+    ['assault rifle', 'shoulder arms'],
+    ['sniper rifle', 'shoulder arms'],
+    ['bows & crossbows', 'archery'],
+    ['grenade launcher', 'heavy weapons'],
+    ['rocket launcher', 'heavy weapons'],
+    ['light melee', 'melee weapon'],
+    ['medium melee', 'melee weapon'],
+    ['heavy melee', 'melee weapon'],
+    ['very heavy melee', 'melee weapon'],
 ];
 
 async function buildSkillLookupTable(queryInterface, skills) {

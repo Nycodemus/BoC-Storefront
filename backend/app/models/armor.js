@@ -3,25 +3,23 @@ const {
     Model,
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-    class WeaponType extends Model {
+    class Armor extends Model {
         static associate(models) {
-            this.belongsTo(models.Skill);
-            this.hasMany(models.Weapon);
-            this.hasOne(models.RangeClass, {
+            this.belongsTo(models.Item, {
                 onDelete: 'CASCADE',
                 onUpdate: 'CASCADE',
             });
         }
     }
-    WeaponType.init({
-        name: {
+    Armor.init({
+        penalty: {
             allowNull: false,
-            type: DataTypes.STRING,
-            unique: true,
+            type: DataTypes.INTEGER,
         },
+        stoppingPower: DataTypes.INTEGER,
     }, {
-        modelName: 'WeaponType',
+        modelName: 'Armor',
         sequelize,
     });
-    return WeaponType;
+    return Armor;
 };

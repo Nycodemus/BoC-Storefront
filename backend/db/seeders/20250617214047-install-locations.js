@@ -1,9 +1,9 @@
 'use strict';
 
 const locations = [
-    ['Mall'],
-    ['Clinic'],
-    ['Hospital'],
+    ['mall'],
+    ['clinic'],
+    ['hospital'],
 ];
 
 /** @type {import('sequelize-cli').Migration} */
