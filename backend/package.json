@@ -10,8 +10,10 @@
   },
   "description": "",
   "devDependencies": {
+    "clipboardy": "^4.0.0",
     "nodemon": "^3.1.10",
-    "sequelize-cli": "^6.6.3"
+    "sequelize-cli": "^6.6.3",
+    "uuid": "^11.1.0"
   },
   "main": "server.js",
   "name": "boc_storefront_backend",
@@ -19,11 +21,15 @@
     "verbose": true,
     "ignore": [
       "./db/**",
-      "*.sqlite"
+      "*.sqlite",
+      "./script/**"
     ]
   },
   "private": true,
   "scripts": {
+    "script:genPass": "node script/genPass.js",
+    "script:genUser": "node script/genUser.js",
+    "script:prepareLocalEnv": "node script/prepareLocalEnv.js",
     "db:init": "npm run db:migrate && npm run db:seed",
     "db:migrate": "sequelize-cli db:migrate",
     "db:seed": "sequelize-cli db:seed:all",
