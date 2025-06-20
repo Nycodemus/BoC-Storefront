@@ -47,6 +47,16 @@ const router = createRouter({
             // lazy-loaded
             path: '/user',
         },
+        {
+            component: () => import('./views/creator/Manufacturer.vue'),
+            name: 'create-manufacturer',
+            path: '/create-manufacturer',
+        },
+        {
+            component: () => import('./views/listings/Manufacturer.vue'),
+            name: 'manufacturers',
+            path: '/manufacturers',
+        },
     ],
 });
 
