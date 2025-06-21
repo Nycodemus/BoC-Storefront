@@ -1,27 +1,23 @@
 <template>
     <div class="col-md-12">
         <div v-if="error" class="alert alert-danger" role="alert">{{ error }}</div>
-        <div>
-            <button class="btn btn-primary btn-block" @click="showModal = true">New Manufacturer</button>
-        </div>
+        <button style="display:flex;align-items: center;margin-left:auto;margin-right:auto;margin-top:15px" class="btn btn-primary btn-block"
+                @click="showModal = true">
+            <h3>New Manufacturer</h3>
+        </button>
+
         <Teleport to="body">
             <CreateManufacturer :show="showModal" @close="showModal = false" @manufacturerCreated="manufacturerCreated">
             </CreateManufacturer>
         </Teleport>
-        <div v-for="(m, idx) in manufacturers" :key="idx" class="card card-container">
-            <div style="display:flex;flex-direction:row;justify-content:space-between"><h2>{{ m.name }}</h2>
-                <button class="btn btn-primary btn-block" :disabled="loading" @click="deleteManufacturer(m.id)">
-                    <span v-show="loading" class="spinner-border spinner-border-sm"></span>
-                    Delete
-                    <font-awesome-icon icon="trash"/>
-                </button>
-            </div>
-        </div>
+        <DeletableListElement v-for="(m, i) in manufacturers" :key="i" :resource="m" @delete="deleteManufacturer"/>
     </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import {ref} from 'vue';
+import DeletableListElement from '../components/DeletableListElement.vue';
+
 const showModal = ref(false);
 </script>
 
@@ -29,8 +25,9 @@ const showModal = ref(false);
 import Manufacturer from '../../models/manufacturer.model.js';
 import ManufacturerService from '../../services/manufacturer.service.js';
 import CreateManufacturer from '../creator/Manufacturer.vue';
+
 export default {
-    components: { CreateManufacturer },
+    components: {CreateManufacturer},
     data() {
         return {
             content: '',

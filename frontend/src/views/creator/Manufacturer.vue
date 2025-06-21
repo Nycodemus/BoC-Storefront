@@ -1,26 +1,27 @@
 <template>
     <Transition name="modal" @keydown.esc="$emit('close')">
-        <div v-if="show" class="modal-mask" >
-            <div class="col-md-12">
-                <div class="card card-container">
-                    <h1>Create New Manufacturer</h1>
-                    <VeeForm name="form" :validation-schema="schema" @submit="createManufacturer">
-                        <div class="form-group">
-                            <label for="name">Manufacturer Name</label>
-                            <Field v-model="manufacturer.name" name="name" type="name" clas="form-field"/>
-                            <ErrorMessage name="name" class="alert alert-danger" role="alert"/>
+        <div v-if="show" class="modal-mask">
+            <div class="card modal-container">
+                <h3>Create New Manufacturer</h3>
+                <VeeForm name="form" :validation-schema="schema" @submit="createManufacturer">
+                    <div class="form-group">
+                        <label for="name">Manufacturer Name</label>
+                        <div>
+                            <Field style="margin-bottom: 10px" v-model="manufacturer.name" name="name" type="name" clas="form-field"/>
+
+                            <ErrorMessage style="text-wrap:nowrap" name="name" class="alert alert-danger" role="alert"/>
                         </div>
-                        <div class="form-group">
-                            <button class="btn btn-primary btn-block" :disabled="loading">
-                                <span v-show="loading" class="spinner-border spinner-border-sm"></span>
-                                <span>Create</span>
-                            </button>
-                        </div>
-                        <div class="form-group">
-                            <div v-if="message" class="alert alert-danger" role="alert">{{ message }}</div>
-                        </div>
-                    </VeeForm>
-                </div>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-block" :disabled="loading">
+                            <span v-show="loading" class="spinner-border spinner-border-sm"></span>
+                            <span>Create</span>
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <div v-if="message" class="alert alert-danger" role="alert">{{ message }}</div>
+                    </div>
+                </VeeForm>
             </div>
         </div>
     </Transition>
@@ -60,6 +61,7 @@ export default {
                 const m = (await ManufacturerService.createManufacturer(this.manufacturer)).data.data;
                 this.loading = false;
                 this.manufacturer.name = '';
+                this.message = '';
                 this.$emit('manufacturerCreated', new Manufacturer(m.id, m.name));
                 this.$emit('close');
             } catch (error) {
@@ -86,6 +88,11 @@ label {
 .card-container.card {
     max-width: 350px !important;
     padding: 40px 40px;
+}
+
+.form-group {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .card {
