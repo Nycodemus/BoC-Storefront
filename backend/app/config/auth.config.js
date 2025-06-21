@@ -1,3 +1,4 @@
 module.exports = {
-    secret: process.env.PASSWORD_SALT,
+    salt: process.env.BCRYPT_SALT,
+    secret: process.env.JWT_SECRET,
 };

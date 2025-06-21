@@ -3,31 +3,6 @@ const config = require('../config/auth.config');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
-const { Op } = db.Sequelize;
-
-exports.signup = async (req, res) => {
-    try {
-        const user = await db.User.create({
-            email: req.body.email,
-            password: bcrypt.hashSync(req.body.password, 8),
-            username: req.body.username,
-        });
-
-        let roles;
-        if (req.body.roles) {
-            roles = await db.Role.findAll({ where: { name: { [Op.or]: req.body.roles } } });
-        } else {
-            roles = await db.Role.findOne({ where: { name: 'user' } });
-        }
-
-        await user.setRoles(roles);
-        res.status(201).send();
-    } catch (error) {
-        console.log(error);
-        res.status(500).send({ message: 'Failed to create user' });
-    }
-};
-
 exports.signin = async (req, res) => {
     try {
         const user = await db.User.findOne({ where: { email: req.body.email } });

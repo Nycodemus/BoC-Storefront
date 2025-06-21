@@ -1,7 +1,6 @@
 import { createMemoryHistory, createRouter } from 'vue-router';
 import Home from './views/Home.vue';
 import Login from './views/Login.vue';
-import Register from './views/Register.vue';
 
 const router = createRouter({
     history: createMemoryHistory(),
@@ -18,10 +17,6 @@ const router = createRouter({
         {
             component: Login,
             path: '/login',
-        },
-        {
-            component: Register,
-            path: '/register',
         },
         {
             component: () => import('./views/Profile.vue'),
@@ -61,7 +56,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    const publicPages = ['/login', '/register', '/home'];
+    const publicPages = ['/login', '/home'];
     const authRequired = !publicPages.includes(to.path);
     const loggedIn = localStorage.getItem('user');
 
