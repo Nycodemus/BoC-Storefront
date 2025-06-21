@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-import {ref} from 'vue';
+import { ref } from 'vue';
 import DeletableListElement from '../components/DeletableListElement.vue';
 
 const showModal = ref(false);
@@ -27,7 +27,7 @@ import ManufacturerService from '../../services/manufacturer.service.js';
 import CreateManufacturer from '../creator/Manufacturer.vue';
 
 export default {
-    components: {CreateManufacturer},
+    components: { CreateManufacturer },
     data() {
         return {
             content: '',

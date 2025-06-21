@@ -30,7 +30,7 @@
 <script setup>
 import * as yup from 'yup';
 
-const props = defineProps({
+defineProps({
     show: Boolean,
 });
 
