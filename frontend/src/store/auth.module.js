@@ -26,16 +26,6 @@ export const auth = {
             AuthService.signout();
             commit('logout');
         },
-        register: async ({ commit }, u) => {
-            try {
-                const response = await AuthService.register(u);
-                commit('registerSuccess', response.data);
-                return response;
-            } catch (error) {
-                commit('registerFailure');
-                throw error;
-            }
-        },
     },
     mutations: {
         loginFailure(state) {
@@ -49,12 +39,6 @@ export const auth = {
         logout(state) {
             state.status.loggedIn = false;
             state.user = null;
-        },
-        registrationFailure(state) {
-            state.status.loggedIn = false;
-        },
-        registrationSuccess(state) {
-            state.status.loggedIn = false;
         },
     },
     namespaced: true,
