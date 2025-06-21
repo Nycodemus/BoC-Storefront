@@ -18,10 +18,11 @@
   "main": "server.js",
   "name": "boc_storefront_backend",
   "nodemonConfig": {
-    "verbose": true,
+    "verbose": false,
     "ignore": [
       "./db/**",
       "*.sqlite",
+      "*.sqlite-journal",
       "./script/**"
     ]
   },

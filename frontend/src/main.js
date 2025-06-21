@@ -10,11 +10,12 @@ import {
     faHome,
     faSignInAlt,
     faSignOutAlt,
+    faTrash,
     faUser,
     faUserPlus,
 } from '@fortawesome/free-solid-svg-icons';
 
-library.add(faHome, faUser, faUserPlus, faSignInAlt, faSignOutAlt);
+library.add(faHome, faUser, faUserPlus, faSignInAlt, faSignOutAlt, faTrash);
 
 createApp(App)
     .use(router)
