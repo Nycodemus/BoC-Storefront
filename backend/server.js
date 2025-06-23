@@ -30,6 +30,8 @@ app.get('/', (req, res) => {
 require('./app/routes/auth.routes')(app);
 require('./app/routes/test.routes')(app);
 require('./app/routes/manufacturer.routes')(app);
+require('./app/routes/itemtype.routes')(app);
+require('./app/routes/item.routes')(app);
 
 app.listen(port, () => {
     console.log(`Server started on port ${port}`);

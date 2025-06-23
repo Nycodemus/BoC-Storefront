@@ -28,6 +28,8 @@ module.exports = {
 
     // eslint-disable-next-line sort-keys,no-unused-vars
     async down(queryInterface, Sequelize) {
-        await queryInterface.bulkDelete('Statistic', { id: statistics.map((s, idx) => idx + 1) });
+        await queryInterface.bulkDelete('Statistic', {
+            id: statistics.map((s, idx) => idx + 1)
+        });
     },
 };

@@ -5,7 +5,6 @@ module.exports = {
     },
     production: {
         dialect: 'mysql',
-
         host: 'storage.sqlite',
     },
     test: {

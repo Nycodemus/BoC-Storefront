@@ -3,7 +3,7 @@ const {
     Model,
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-    class Manufacturer extends Model {
+    class ItemType extends Model {
         static associate(models) {
             this.hasMany(models.Item, {
                 onDelete: 'CASCADE',
@@ -17,15 +17,15 @@ module.exports = (sequelize, DataTypes) => {
             };
         }
     }
-    Manufacturer.init({
+    ItemType.init({
         name: {
             allowNull: false,
             type: DataTypes.STRING,
             unique: true,
         },
     }, {
-        modelName: 'Manufacturer',
+        modelName: 'ItemType',
         sequelize,
     });
-    return Manufacturer;
+    return ItemType;
 };
